@@ -1,26 +1,22 @@
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { changeProfile } from '../store';
+import { useAtom } from 'jotai';
+import { userAtom } from '../atoms/user'
 
 export const Logout = () => {
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAtom(userAtom);
   const logout = () => {
     Cookies.remove('token');
     Cookies.remove('email');
     Cookies.remove('description');
     Cookies.remove('id');
     Cookies.remove('username');
-    dispatch(
-      changeProfile({
-        username:'',
-        email:'',
-        description:'',
-        id:''
-      })
-    )
+    dispatch({
+      type:"update",
+      data:{username: "", description: "", email:"", id:""}
+    })
     navigate('login');
   }
   return (

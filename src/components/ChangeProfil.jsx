@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeProfile } from '../store';
+import { useAtom } from 'jotai';
+import { userAtom } from '../atoms/user';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 export const ChangeProfil = () => {
   const [inputs, setInputs] = useState({});
-  const userId = useSelector((state) => state.user.value.id);
-  const email = useSelector((state) => state.user.value.email)
-  const dispatch = useDispatch();
+  const [user, dispatch] = useAtom(userAtom);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -18,7 +16,7 @@ export const ChangeProfil = () => {
       username: inputs.username,
       description: inputs.description,
     };
-    fetch(`http://localhost:8080/api/users/${userId}`, {
+    fetch(`http://localhost:1337/api/users/${user[0].id}`, {
       method: 'put',
       headers:{
         'Content-Type': 'application/json',
@@ -28,14 +26,10 @@ export const ChangeProfil = () => {
     })
     .then(response => response.json())
     .then(
-      dispatch(
-        (changeProfile({
-          username: inputs.username,
-          description: inputs.description,
-          email: email,
-          id: userId
-        }))
-      ),
+      dispatch({
+        type:"update",
+        data:{username: inputs.username, description: inputs.description}
+      }),
       Cookies.set('username', inputs.username),
       Cookies.set('description', inputs.description),
       navigate('../../profile')

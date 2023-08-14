@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import { changeProfile } from '../store';
-import { useDispatch } from 'react-redux';
+import { useAtom } from 'jotai';
+import { userAtom } from '../atoms/user';
 
 
 export const Login = () => {
   const [login, setLogin] = useState({});
-  const dispatch = useDispatch();
+  const dispatch = useAtom(userAtom);
   const navigate = useNavigate();
   const handleChange = (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ export const Login = () => {
       identifier: login.identifier,
       password: login.password
     };
-    fetch('http://localhost:8080/api/auth/local', {
+    fetch('http://localhost:1337/api/auth/local', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -36,14 +36,15 @@ export const Login = () => {
       Cookies.set('email', data.user.email, { expires: 7 })
       Cookies.set('description', data.user.description, { expires: 7 })
       Cookies.set('id', data.user.id, { expires: 7 })
-      dispatch(
-        changeProfile({
+      dispatch({
+        type:"update",
+        data:{
           username: data.user.username,
           email: data.user.email,
           description: data.user.description,
           id: data.user.id
-        })
-      );
+        }
+      })
     })
     .catch(error => {
       console.error(error);

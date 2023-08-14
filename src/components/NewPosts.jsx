@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { useAtom } from "jotai/react";
 import { userAtom } from "../atoms/user";
 
 export const NewPosts = () => {
   const [message, setMessage] = useState('');
-  const userId = useSelector((state) => state.user.value.id);
-  const user = useAtom(userAtom)
+  const user = useAtom(userAtom);
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,9 +13,9 @@ export const NewPosts = () => {
     const objectData = {
       data: {
         text: message,
-        user: userId
+        user: user[0].id
     }}
-    fetch('http://localhost:8080/api/posts', {
+    fetch('http://localhost:1337/api/posts', {
       method: 'post',
       headers:{
         'Content-Type': 'application/json',

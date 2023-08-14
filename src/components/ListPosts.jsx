@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
-import { useSelector } from "react-redux";
 import { DeletePostButton } from "./DeletePostButton";
 import { useAtom } from "jotai/react";
 import { userAtom } from "../atoms/user";
@@ -8,12 +7,11 @@ import { userAtom } from "../atoms/user";
 export const ListPosts = () => {
   const [postsNumber, setPostsNumber] = useState('')
   const [dataPosts, setDataPosts] = useState([]);
-  const userId = useSelector((state) => state.user.value.id);
   const user = useAtom(userAtom);
 
   useEffect(() => {
     const token = Cookies.get('token');
-    fetch('http://localhost:8080/api/posts?populate=user', {
+    fetch('http://localhost:1337/api/posts?populate=user', {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
@@ -27,8 +25,7 @@ export const ListPosts = () => {
         <div key={post.id}>
           <p>{post.attributes.text}</p>
           <p>Ecrit par {post.attributes.user.data.attributes.username}</p>
-          {userId == post.attributes.user.data.id && <DeletePostButton postId={post.id} /> }
-
+          {user[0].id == post.attributes.user.data.id && <DeletePostButton postId={post.id} />}
         </div>
       ))
       
@@ -36,7 +33,7 @@ export const ListPosts = () => {
     .catch(error => {
       console.error(error);
     });
-  }, [userId])
+  }, [user])
 
   return (
     <>
