@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 export const DeletePostButton = (props) => {
   const deletePost = () => {
     const token = Cookies.get('token');
-    fetch(`http://localhost:8080/api/posts/${props.postId}`, {
+    fetch(`http://localhost:8080/api/posts/${props.postID}`, {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,  
       }
     })
-    .then(console.log('Le post à bien été supprimé !'))
-    .then(() => {window.location.reload()})
+    .then(() => window.location.reload())
     .catch(error => {
       console.error(error);
     });
@@ -24,5 +23,5 @@ export const DeletePostButton = (props) => {
 }
 
 DeletePostButton.propTypes= {
-  postId: PropTypes.number
+  postID: PropTypes.number
 }

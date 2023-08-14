@@ -4,7 +4,6 @@ import { useAtom } from 'jotai';
 import { userAtom } from '../atoms/user'
 
 export const Logout = () => {
-
   const navigate = useNavigate();
   const [user, dispatch] = useAtom(userAtom);
   const logout = () => {

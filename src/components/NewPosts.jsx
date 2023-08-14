@@ -23,7 +23,12 @@ export const NewPosts = () => {
       },
       body: JSON.stringify(objectData)
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Le post n'a pas pu être publié !");
+    })
     .then(() => {window.location.reload()})
     .catch(error => {
       console.error(error);

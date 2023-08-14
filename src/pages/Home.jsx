@@ -9,10 +9,10 @@ export const Home = () => {
 
   return (
     <>
-      {!user[0].id ?
+      {!user[0].id &&
       <p>
         Welcome on My Social Network. This website is a training to React, global state handling and tokens. Here, authentification and routing will be used to create a small social media website.
-      </p>:""}
+      </p>}
       { user[0].id && <NewPosts />}
       { user[0].id && <ListPosts />}
     </>

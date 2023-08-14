@@ -5,7 +5,8 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 export const ChangeProfil = () => {
-  const [inputs, setInputs] = useState({});
+  const initialValues = {username:Cookies.get('username'), description:Cookies.get('description')}
+  const [inputs, setInputs] = useState(initialValues);
   const [user, dispatch] = useAtom(userAtom);
   const navigate = useNavigate();
 
@@ -24,8 +25,14 @@ export const ChangeProfil = () => {
       },
       body: JSON.stringify(({...data, username:inputs.username, description:inputs.description}))
     })
-    .then(response => response.json())
-    .then(
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Le profil n'a pas pu être modifié !");
+    })
+    .then(response => {
+      console.log(response && 'Le profil à été modifié !')
       dispatch({
         type:"update",
         data:{username: inputs.username, description: inputs.description}
@@ -33,7 +40,7 @@ export const ChangeProfil = () => {
       Cookies.set('username', inputs.username),
       Cookies.set('description', inputs.description),
       navigate('../../profile')
-    )
+    })
     .catch(error => {
       console.error(error);
     });

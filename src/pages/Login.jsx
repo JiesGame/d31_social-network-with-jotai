@@ -45,13 +45,13 @@ export const Login = () => {
           id: data.user.id
         }
       })
+      console.log('Connexion réussie !')
     })
     .catch(error => {
       console.error(error);
     });
     
     navigate('../');
-    console.log('Connexion réussie !')
   }
   
   return (

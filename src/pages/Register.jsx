@@ -44,15 +44,14 @@ export const Register = () => {
           id: data.user.id
         }
       });
+      console.log('Connexion réussie !')
     })
     .catch(error => {
       console.error(error);
     });
     navigate('../');
-    console.log('Connexion réussie !')
   }
-  
-  
+    
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -68,7 +67,7 @@ export const Register = () => {
       body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(console.log('Inscription réussie !'))
+    .then(response => response && console.log('Inscription réussie !'))
     .catch(error => {
       console.error(error);
     });
