@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { DeletePostButton } from "./DeletePostButton";
 import { useAtom } from "jotai/react";
 import { userAtom } from "../atoms/user";
+import { Link } from "react-router-dom";
 
 export const ListPosts = () => {
   const [postsNumber, setPostsNumber] = useState('')
@@ -11,7 +12,7 @@ export const ListPosts = () => {
 
   useEffect(() => {
     const token = Cookies.get('token');
-    fetch('http://localhost:1337/api/posts?populate=user', {
+    fetch('http://localhost:8080/api/posts?populate=user', {
       method: 'get',
       headers: {
         'Content-Type': 'application/json',
@@ -20,11 +21,12 @@ export const ListPosts = () => {
     })
     .then(response => response.json())
     .then(data => {
+
       setPostsNumber(data.meta.pagination.total),
       setDataPosts(data.data.map(post =>
         <div key={post.id}>
           <p>{post.attributes.text}</p>
-          <p>Ecrit par {post.attributes.user.data.attributes.username}</p>
+          <p>Ecrit par <Link to={`user/${post.attributes.user.data.attributes.username}`}>{post.attributes.user.data.attributes.username}</Link></p>
           {user[0].id == post.attributes.user.data.id && <DeletePostButton postId={post.id} />}
         </div>
       ))
@@ -33,7 +35,7 @@ export const ListPosts = () => {
     .catch(error => {
       console.error(error);
     });
-  }, [user])
+  }, [])
 
   return (
     <>

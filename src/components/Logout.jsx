@@ -6,7 +6,7 @@ import { userAtom } from '../atoms/user'
 export const Logout = () => {
 
   const navigate = useNavigate();
-  const dispatch = useAtom(userAtom);
+  const [user, dispatch] = useAtom(userAtom);
   const logout = () => {
     Cookies.remove('token');
     Cookies.remove('email');

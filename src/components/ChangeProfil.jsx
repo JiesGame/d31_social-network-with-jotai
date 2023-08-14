@@ -16,7 +16,7 @@ export const ChangeProfil = () => {
       username: inputs.username,
       description: inputs.description,
     };
-    fetch(`http://localhost:1337/api/users/${user[0].id}`, {
+    fetch(`http://localhost:8080/api/users/${user.id}`, {
       method: 'put',
       headers:{
         'Content-Type': 'application/json',

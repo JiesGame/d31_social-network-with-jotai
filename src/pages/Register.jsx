@@ -7,7 +7,7 @@ import { userAtom } from '../atoms/user';
 
 export const Register = () => {
   const [inputs, setInputs] = useState({});
-  const dispatch = useAtom(userAtom);
+  const [user,dispatch] = useAtom(userAtom);
   const navigate = useNavigate();
   const handleChange = (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ export const Register = () => {
       identifier: inputs.username,
       password: inputs.password
     };
-    fetch('http://localhost:1337/api/auth/local', {
+    fetch('http://localhost:8080/api/auth/local', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export const Register = () => {
       email: inputs.email,
       password: inputs.password
     };
-    fetch('http://localhost:1337/api/auth/local/register', {
+    fetch('http://localhost:8080/api/auth/local/register', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

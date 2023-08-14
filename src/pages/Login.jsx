@@ -7,7 +7,7 @@ import { userAtom } from '../atoms/user';
 
 export const Login = () => {
   const [login, setLogin] = useState({});
-  const dispatch = useAtom(userAtom);
+  const [user,dispatch] = useAtom(userAtom);
   const navigate = useNavigate();
   const handleChange = (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ export const Login = () => {
       identifier: login.identifier,
       password: login.password
     };
-    fetch('http://localhost:1337/api/auth/local', {
+    fetch('http://localhost:8080/api/auth/local', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

@@ -13,12 +13,7 @@ export const Navbar = () => {
       {user[0].username && <Link to='profile'>Profile</Link>}
       {!user[0].username && <Link to='register'>Register</Link>}
       {user[0].username && <Logout />}
-      {user[0].username ? <p>Profil de : {user[0].username} </p> : <p>Non connecté</p>}
-      {console.log(user[0])}
-      {user[0].id}
-      {user[0].username}
-      {user[0].description}
-      {user[0].email}
+      {user[0].username ? <p>Utilisateur connecté : {user[0].username} </p> : <p>Non connecté</p>}
     </div>
   )
 }

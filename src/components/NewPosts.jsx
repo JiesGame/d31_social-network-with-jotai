@@ -15,7 +15,7 @@ export const NewPosts = () => {
         text: message,
         user: user[0].id
     }}
-    fetch('http://localhost:1337/api/posts', {
+    fetch('http://localhost:8080/api/posts', {
       method: 'post',
       headers:{
         'Content-Type': 'application/json',

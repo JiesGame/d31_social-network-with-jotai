@@ -21,7 +21,7 @@ function App() {
         <Route path='profile' element={<Profile />}>
           <Route path ='changeprofile' element={<ChangeProfil/>} />
         </Route>
-        <Route path='user/[user]' element={<User />}/>
+        <Route path='user/:username' element={<User />}/>
       </Routes>
     </Router>
    </>

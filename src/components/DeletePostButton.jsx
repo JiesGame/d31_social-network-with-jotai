@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const DeletePostButton = (props) => {
   const deletePost = () => {
     const token = Cookies.get('token');
-    fetch(`http://localhost:1337/api/posts/${props.postId}`, {
+    fetch(`http://localhost:8080/api/posts/${props.postId}`, {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
