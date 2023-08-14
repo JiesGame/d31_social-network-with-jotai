@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
+import { useAtom } from "jotai/react";
+import { userAtom } from "../atoms/user";
 
 export const NewPosts = () => {
   const [message, setMessage] = useState('');
   const userId = useSelector((state) => state.user.value.id);
+  const user = useAtom(userAtom)
   
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -1,4 +1,5 @@
 import { atomWithReducer } from 'jotai/utils';
+import Cookies from 'js-cookie';
 
 const userReducer = (prevState, action) => {
   const { type, data } = action;
@@ -12,6 +13,6 @@ const userReducer = (prevState, action) => {
 };
 
 export const userAtom = atomWithReducer(
-  { token: '', id: '', username: '', email: '', description: '' },
+  {id: Cookies.get('id') || "", username: Cookies.get('username') || "", email: Cookies.get('email') || "", description: Cookies.get('description') || "" },
   userReducer
 );

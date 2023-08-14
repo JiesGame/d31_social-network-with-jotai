@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 import { useSelector } from "react-redux";
 import { DeletePostButton } from "./DeletePostButton";
+import { useAtom } from "jotai/react";
+import { userAtom } from "../atoms/user";
 
 export const ListPosts = () => {
   const [postsNumber, setPostsNumber] = useState('')
   const [dataPosts, setDataPosts] = useState([]);
   const userId = useSelector((state) => state.user.value.id);
+  const user = useAtom(userAtom);
 
   useEffect(() => {
     const token = Cookies.get('token');
