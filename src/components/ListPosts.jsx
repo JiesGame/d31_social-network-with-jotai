@@ -33,7 +33,7 @@ export const ListPosts = () => {
     .catch(error => {
       console.error(error);
     });
-  }, [])
+  }, [userId])
 
   return (
     <>
